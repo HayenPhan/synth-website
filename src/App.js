@@ -17,6 +17,41 @@ const LiWrapper = styled.div`
     margin-bottom: 25px;
 `
 
+const ModalHeader = styled(Modal.Header)`
+    @import url('https://fonts.googleapis.com/css?family=Poppins:300,500,700&display=swap');
+    color: #324BB8;
+    font-family: Poppins;
+    font-weight: 700;
+    text-indent: 4px;
+`;
+
+const ModalBody = styled(Modal.Body)`
+    @import url('https://fonts.googleapis.com/css?family=Poppins:300,500,700&display=swap');
+    color: #717171;
+    font-family: Poppins;
+    font-weight: 300;
+    text-indent: 4px;
+`;
+
+const BackButton = styled.button`
+    font-weight: 700;
+    font-size: 18px;
+    color: #ffffff;
+    width: 100px;
+    letter-spacing: 1px;
+    height: 41px;
+    border-radius: 6px;
+    border: none;
+    margin: 0;
+    text-decoration: none;
+    background: #324BB8;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+`;
+
+
+
 class App extends React.Component {
     constructor(props) {
       super(props);
@@ -65,24 +100,30 @@ class App extends React.Component {
         } else if (!isLoaded) {
             return <div> Loading... </div>;
         } else {
-
-                console.log(itemsi)
             return (
               <StyledUl>
 
 
                   {itemsi.map((item, i) => {
 
-                    //const user = item.user[i];
-                    //const teacher = item.teacher[i];
 
                     return (
                       <LiWrapper key={i}>
                            <StyledLi>
                              {item.name}
                            </StyledLi>
-                           <Button onClick={() => this.showModal()}> Detail </Button>
+                           <Button onClick={() => this.showModal(item.user, item.teacher)}> Detail </Button>
                            <Modal show={this.state.modalShow} onHide={this.onHide}>
+                               <ModalHeader closeButton>Close</ModalHeader>
+                               <ModalBody>
+                                  {this.state.user}
+
+                                  {this.state.teacher}
+
+                               </ModalBody>
+                               <Modal.Footer>
+                                    <BackButton onClick={this.onHide}>Back</BackButton>
+                              </Modal.Footer>
                            </Modal>
                        </LiWrapper>
                     )
