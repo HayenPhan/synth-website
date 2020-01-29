@@ -13,14 +13,24 @@ class App extends React.Component {
       super();
         this.state = {
             // Overview
-            name: '',
-            teacher: '',
             items: [],
             isLoaded: false,
             error: null,
+
+            //Create
+            name: '',
+            user: '',
+            teacher: ''
+
         }
 
          this.getInstruments = this.getInstruments.bind(this);
+
+         // create
+         this.handleChangeName = this.handleChangeName.bind(this);
+         this.handleChangeUser = this.handleChangeUser.bind(this);
+         this.handleChangeTeacher = this.handleChangeTeacher.bind(this);
+         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -42,13 +52,51 @@ class App extends React.Component {
       .catch(error => this.setState({ error, isLoaded: true }));
     }
 
+    // Create
+
+    handleChangeName(event) {
+        this.setState({ name: event.target.value }) //event.target.value
+    }
+
+    handleChangeUser(event) {
+        this.setState({ user: event.target.value })
+    }
+
+    handleChangeTeacher(event) {
+        this.setState({ teacher: event.target.value })
+    }
+
+    handleSubmit = (event) => {
+
+        // event preventdefault let the code work, but values are not resetted and you have to refresh the page. Async is the problem
+        event.preventDefault();
+
+        //const bodyFormData = new FormData();
+
+        axios.post(
+        'http://145.24.222.245:8000/instruments',
+        {
+            name: this.state.name,
+            user: this.state.user,
+            teacher: this.state.teacher
+        },
+        {
+          headers: {
+             'Content-Type': 'application/json',
+          },
+        })
+        .then(res => {
+            console.log(res.data);
+        })
+
+    }
+
+
     render() {
       return (
         <Router>
             <Switch>
-                <Route path="/create">
-                  <Create />
-                </Route>
+                <Route path="/create" render={()=><Create handleSubmit={this.handleSubmit} name={this.state.name} user={this.state.user} teacher={this.state.teacher} handleChangeName={this.handleChangeName} handleChangeUser={this.handleChangeUser} handleChangeTeacher={this.handleChangeTeacher} />}/>
                 <Route path="/" render={()=><Overview items={this.state.items} error={this.state.error} isLoaded={this.state.isLoaded} />}/>
             </Switch>
         </Router>
