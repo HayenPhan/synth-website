@@ -2,8 +2,8 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import styled from 'styled-components';
 import Modal from "react-bootstrap/Modal";
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const StyledLi = styled.li`
   font-family: Arial;
@@ -56,28 +56,14 @@ const DetailButton = styled(Button)`
     border: none;
 `;
 
-
-
 class Overview extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-          error: null,
-          isLoaded: false,
-          items: [],
           modalShow: false,
           name: '',
           teacher: '',
-          inputName: '',
-          inputUser: '',
-          inputTeacher: '',
       }
-
-       this.getInstruments = this.getInstruments.bind(this);
-    }
-
-    componentDidMount() {
-        this.getInstruments();
     }
 
     onHide = () => this.setState({ modalShow: false });
@@ -86,30 +72,12 @@ class Overview extends React.Component {
         this.setState({name: name, teacher: teacher}, ()=> this.setState({ modalShow: true }));
     }
 
-    getInstruments = () => {
-        fetch("http://145.24.222.245:8000/instruments")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        items: result
-                    })
-                },
+    render(props) {
 
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    })
-                }
-            )
-    }
+        const { error, isLoaded, items } = this.props;
 
-    render() {
+        const itemsi = this.props.items.items; //
 
-        const { error, isLoaded, items } = this.state;
-        const itemsi = this.state.items.items;
         if (error) {
             return <div> Error: {error.message} </div>;
         } else if (!isLoaded) {
