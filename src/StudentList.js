@@ -89,7 +89,7 @@ class StudentList extends React.Component {
     onDelete = (val, e) => {
         e.preventDefault();
         deleteStudent(val)
-        this.getAll()
+
     }
 
     render() {
@@ -137,8 +137,8 @@ class StudentList extends React.Component {
                                     return (
                                       <div key={i}>
                                        <ListGroup.Item>{subitem.name}</ListGroup.Item>
-                                       <Button href="" disabled={this.state.editDisabled} onClick={this.onEdit.bind(this, subitem._id)}>Edit</Button>
-                                      <Button href="" disabled={this.state.editDisabled} onClick={this.onEdit.bind(this, subitem._id)}>Delete</Button>
+                                       <Button href="" disabled={this.state.editDisabled} onClick={this.onEdit.bind(this, subitem.id)}>Edit</Button>
+                                       <Button href="" disabled={this.state.editDisabled} onClick={this.onDelete.bind(this, subitem.id)}>Delete</Button>
                                        </div>
                                     )
                                   })

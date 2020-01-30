@@ -33,7 +33,7 @@ export const addStudent = (name, user, teacher) => {
 // DELETE
 
 export const deleteStudent = id => { // Klopt miss niet
-    axios.delete(`instruments/user/${id}`, {
+    axios.delete(`instruments/${id}`, {
         headers: {'Content-Type': 'application/json'}
     })
     .then(res => {
@@ -48,7 +48,7 @@ export const deleteStudent = id => { // Klopt miss niet
 
 export const updateStudent = (name, user, teacher, id) => {    // Klopt miss niet
     return axios
-    .put(`instruments/user/${id}`,
+    .put(`instruments/${id}`,
     {
         name: name,
         user: user,
