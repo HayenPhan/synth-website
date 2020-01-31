@@ -11,7 +11,8 @@ class StudentList extends React.Component {
             user: '',
             teacher: '',
             editDisabled: false,
-            items:[]
+            items:[],
+            test: ''
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -87,9 +88,19 @@ class StudentList extends React.Component {
     }
 
     onDelete = (val, e) => {
+        const initialState = {};
         e.preventDefault();
         deleteStudent(val)
 
+        this.state.items.map((item, index) => (
+            console.log(item.items)
+        ))
+
+        //this.state.items[0].items
+
+        this.setState({
+            items: this.state.items.filter(el => el.id !== val)
+        })
     }
 
     render() {
@@ -130,21 +141,22 @@ class StudentList extends React.Component {
               </Form>
               <ListGroup>
 
-                          {this.state.items.map((item, index) => (
-                            <ListGroup.Item key={index}>
-                               {
-                                  item.items.map((subitem, i) => {
-                                    return (
-                                      <div key={i}>
-                                       <ListGroup.Item>{subitem.name}</ListGroup.Item>
-                                       <Button href="" disabled={this.state.editDisabled} onClick={this.onEdit.bind(this, subitem.id)}>Edit</Button>
-                                       <Button href="" disabled={this.state.editDisabled} onClick={this.onDelete.bind(this, subitem.id)}>Delete</Button>
-                                       </div>
-                                    )
-                                  })
-                              }
-                          </ListGroup.Item>
-                          ))}
+
+                  {this.state.items.map((item, index) => (
+                    <ListGroup.Item key={index}>
+                       {
+                          item.items.map((subitem, i) => {
+                            return (
+                              <div key={i}>
+                               <ListGroup.Item>{subitem.name}</ListGroup.Item>
+                               <Button href="" disabled={this.state.editDisabled} onClick={this.onEdit.bind(this, subitem.id)}>Edit</Button>
+                               <Button href="" disabled={this.state.editDisabled} onClick={this.onDelete.bind(this, subitem.id)}>Delete</Button>
+                               </div>
+                            )
+                          })
+                      }
+                  </ListGroup.Item>
+                  ))}
 
               </ListGroup>
           </Col>
