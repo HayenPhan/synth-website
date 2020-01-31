@@ -87,6 +87,8 @@ class StudentList extends React.Component {
         })
     }
 
+
+
     onDelete = (val, e) => {
         const initialState = {};
         e.preventDefault();
@@ -98,9 +100,68 @@ class StudentList extends React.Component {
 
         //this.state.items[0].items
 
-        this.setState({
-            items: this.state.items.filter(el => el.id !== val)
-        })
+        const test = {
+            "items": {
+              "name": "hayen",
+              "id": "5e2f1bf31068233b167929d8"
+            },
+        }
+
+        const res = Object.keys(test).reduce((acc, key) => ({...acc, [key]:[test[key]]}), {});
+
+        const west = [res];
+        const hest = this.state.items;
+
+        const list1 = this.state.items.map((item, i) => {
+            //this.state.item.filter(el => console.log(el))
+            return item;
+        });
+
+        const list2 = list1.map((it, i) => {
+            //this.state.item.filter(el => console.log(el))
+            return it;
+        });
+
+        //const real1 = list1.items.map((een) => {
+            //return een;
+        //});
+
+        //console.log(list2);
+
+        const list3 = list2.map((mup, i) => {
+            //this.state.item.filter(el => console.log(el))
+            return mup;
+        });
+
+
+        //const newItems = west.filter(el => el.id !== val);
+
+        const newItems = west.filter(el => {
+
+          const list4 = el.items.map((it, i) => {
+              //this.state.item.filter(el => console.log(el))
+              return it.id
+          });
+
+          console.log(list4)
+
+
+        });
+
+        
+
+
+        //console.log([res])
+
+        this.setState({ items: testie })
+
+
+
+
+        //console.log(best.filter(el => el.id !== val))
+
+
+
     }
 
     render() {
