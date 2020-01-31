@@ -102,22 +102,34 @@ class StudentList extends React.Component {
             },
         }
 
+
+        // Place [] around certain objects
         const res = Object.keys(test).reduce((acc, key) => ({...acc, [key]:[test[key]]}), {});
 
-        const west = [res];
-        const hest = this.state.items;
+        // Test
+        const formattedTest = [res];
+
+        // This.state
+        const state = this.state.items;
 
 
         //const testItems = hest.filter(el => el.items[i].id !== val);
 
-        const testItems = hest.filter(el => {
-            return el.items[i].id !== val
+        // Mapping
+        const firstMap = state.map((item, index) => {
+            return item.items
         });
 
+        // Filtering
+        const testItems2 = firstMap.filter(el => el[i]._id !== val);
 
-      await this.setState({ items: [...testItems], test: 'Lol' })
+        //const testItems = state.filter(el => {
+            //return el.items[i].id !== val
+        //});
 
-      console.log(this.state)
+        await this.setState({ items: [...testItems2], test: 'Lol' })
+
+        console.log(this.state)
 
     }
 
