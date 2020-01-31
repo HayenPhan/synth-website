@@ -89,21 +89,16 @@ class StudentList extends React.Component {
 
 
 
-    onDelete = (val, e) => {
-        const initialState = {};
-        e.preventDefault();
+    onDelete = async (i, val, e) => {
+        //e.preventDefault();
         deleteStudent(val)
-
-        this.state.items.map((item, index) => (
-            console.log(item.items)
-        ))
 
         //this.state.items[0].items
 
         const test = {
             "items": {
               "name": "hayen",
-              "id": "5e2f1bf31068233b167929d8"
+              "id": "5e34500b1068233b16792bca"
             },
         }
 
@@ -112,55 +107,17 @@ class StudentList extends React.Component {
         const west = [res];
         const hest = this.state.items;
 
-        const list1 = this.state.items.map((item, i) => {
-            //this.state.item.filter(el => console.log(el))
-            return item;
-        });
 
-        const list2 = list1.map((it, i) => {
-            //this.state.item.filter(el => console.log(el))
-            return it;
-        });
+        //const testItems = hest.filter(el => el.items[i].id !== val);
 
-        //const real1 = list1.items.map((een) => {
-            //return een;
-        //});
-
-        //console.log(list2);
-
-        const list3 = list2.map((mup, i) => {
-            //this.state.item.filter(el => console.log(el))
-            return mup;
+        const testItems = hest.filter(el => {
+            return el.items[i].id !== val
         });
 
 
-        //const newItems = west.filter(el => el.id !== val);
+      await this.setState({ items: [...testItems], test: 'Lol' })
 
-        const newItems = west.filter(el => {
-
-          const list4 = el.items.map((it, i) => {
-              //this.state.item.filter(el => console.log(el))
-              return it.id
-          });
-
-          console.log(list4)
-
-
-        });
-
-        
-
-
-        //console.log([res])
-
-        this.setState({ items: testie })
-
-
-
-
-        //console.log(best.filter(el => el.id !== val))
-
-
+      console.log(this.state)
 
     }
 
@@ -211,7 +168,7 @@ class StudentList extends React.Component {
                               <div key={i}>
                                <ListGroup.Item>{subitem.name}</ListGroup.Item>
                                <Button href="" disabled={this.state.editDisabled} onClick={this.onEdit.bind(this, subitem.id)}>Edit</Button>
-                               <Button href="" disabled={this.state.editDisabled} onClick={this.onDelete.bind(this, subitem.id)}>Delete</Button>
+                               <Button href="" disabled={this.state.editDisabled} onClick={this.onDelete.bind(this, i, subitem.id,)}>Delete</Button>
                                </div>
                             )
                           })
