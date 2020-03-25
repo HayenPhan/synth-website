@@ -4,43 +4,38 @@ import { Container, Row, Col, Form, Button, Table, ListGroup} from 'react-bootst
 import Block from './Block';
 
 class StudentList extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             id: '',
             name: '',
             user: '',
             teacher: '',
             editDisabled: false,
-            items:[],
-            test: ''
+            items: null,
+            test: '',
+            message: ''
         }
 
         this.onSubmit = this.onSubmit.bind(this)
         this.onChange = this.onChange.bind(this)
     }
 
-    componentDidMount(){
-        this.getAll()
+    async componentDidMount() {
+      this.getAll()
     }
 
     onChange = e => {
           this.setState({ [e.target.name]: e.target.value })
     }
 
-    getAll = () => {
-        getStudents().then(data => {
-            this.setState({
-                name: '',
-                user: '',
-                teacher: '',
-                items: [data],
-            },
-            () => {
-                console.log(this.state.items)
-            }
-          )
-        })
+    getAll = async () =>  {
+      const res = await fetch('http://145.24.222.245:8000/instruments')
+      const data = await res.json()
+
+      this.setState({
+        items: data['items']
+      })
     }
 
     onSubmit = e => {
@@ -90,47 +85,35 @@ class StudentList extends React.Component {
 
 
 
-    onDelete = async (i, id) => {
+    onDelete = item => {
         //e.preventDefault();
-        deleteStudent(id)
+        const self = this
+        const itemId = item._id
+        const items = this.state.items
 
-        //this.state.items[0].items
+        fetch(`instruments/${itemId}`, {
+           method: 'DELETE',
+           headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+           },
+         }).then(res => {
+             if (res.ok) {
+                 self.setState({
+                     message: `Verwijderd`
+                 })
+             }
+         })
 
-        const test = {
-            "items": {
-              "name": "hayen",
-              "id": "5e34500b1068233b16792bca"
-            },
-        }
+        console.log('before setState');
+        console.log(this.state.items);
 
+       this.setState({
+           items: items.filter(item => item._id !== itemId)
+       });
 
-        // Place [] around certain objects
-        const res = Object.keys(test).reduce((acc, key) => ({...acc, [key]:[test[key]]}), {});
-
-        // Test
-        const formattedTest = [res];
-
-        // This.state
-        const state = this.state.items;
-
-
-        //const testItems = hest.filter(el => el.items[i].id !== val);
-
-        // Mapping
-        const firstMap = state.map((item, index) => {
-            return item.items
-        });
-
-        // Filtering
-        const testItems2 = firstMap.filter(el => el[i]._id !== id);
-
-        //const testItems = state.filter(el => {
-            //return el.items[i].id !== val
-        //});
-
-        await this.setState({ items: [...testItems2], test: 'Lol' })
-
-        console.log(this.state)
+       console.log('after setState');
+       console.log(this.state.items);
 
     }
 
@@ -170,17 +153,16 @@ class StudentList extends React.Component {
                     ''
                 )}
               </Form>
-              <ListGroup>
 
-              </ListGroup>
-
-              {this.state.items.map((item, index) => (
-              <ListGroup.Item key={index}>
-                 {
-                   item.items.map((subitem, i) => <Block onDelete={this.onDelete} id={subitem._id} subitem={subitem} index={i}></Block>)
-                 }
-              </ListGroup.Item>
-            ))}
+              <ListGroup.Item>
+                {
+                    !this.state.items ? (
+                      <div style={{ backgroundColor: '#5CB85C', color: 'white', padding: '10px' }}>{this.state.message}</div>
+                    ) : (
+                      this.state.items.map(item => <Block handleDelete={this.onDelete} key={item._id} item={item}></Block>)
+                    )
+                }
+               </ListGroup.Item>
 
           </Col>
       )

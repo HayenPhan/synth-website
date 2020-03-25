@@ -7,6 +7,7 @@ export const getStudents = () => {
         headers: {'Content-Type': 'application/json'}
     })
     .then(res => {
+      console.log('haallopdan');
         return res.data
     })
 }

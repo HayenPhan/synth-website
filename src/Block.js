@@ -7,15 +7,15 @@ export default class Block extends React.Component {
         super(props);
 
         this.state = {
-            subitem: this.props.subitem
+            item: this.props.item
         }
     }
 
     render() {
         return (
-            <div key={this.props.index}>
-                 <ListGroup.Item>{this.state.subitem.name}</ListGroup.Item>
-                 <Link onClick={() => this.props.onDelete(this.props.index, this.props.id)}>Verwijderen</Link>
+            <div>
+                 <ListGroup.Item>{this.state.item.name}</ListGroup.Item>
+                 <Button onClick={() => this.props.handleDelete(this.state.item)}>Verwijderen</Button>
             </div>
         )
     }
