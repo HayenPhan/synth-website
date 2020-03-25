@@ -1,6 +1,7 @@
 import React from 'react';
 import {getStudents, addStudent, deleteStudent, updateStudent} from './StudentFunctions.js';
 import { Container, Row, Col, Form, Button, Table, ListGroup} from 'react-bootstrap';
+import Block from './Block';
 
 class StudentList extends React.Component {
     constructor(){
@@ -89,9 +90,9 @@ class StudentList extends React.Component {
 
 
 
-    onDelete = async (i, val, e) => {
+    onDelete = async (i, id) => {
         //e.preventDefault();
-        deleteStudent(val)
+        deleteStudent(id)
 
         //this.state.items[0].items
 
@@ -121,7 +122,7 @@ class StudentList extends React.Component {
         });
 
         // Filtering
-        const testItems2 = firstMap.filter(el => el[i]._id !== val);
+        const testItems2 = firstMap.filter(el => el[i]._id !== id);
 
         //const testItems = state.filter(el => {
             //return el.items[i].id !== val
@@ -171,24 +172,16 @@ class StudentList extends React.Component {
               </Form>
               <ListGroup>
 
-
-                  {this.state.items.map((item, index) => (
-                    <ListGroup.Item key={index}>
-                       {
-                          item.items.map((subitem, i) => {
-                            return (
-                              <div key={i}>
-                               <ListGroup.Item>{subitem.name}</ListGroup.Item>
-                               <Button href="" disabled={this.state.editDisabled} onClick={this.onEdit.bind(this, subitem.id)}>Edit</Button>
-                               <Button href="" disabled={this.state.editDisabled} onClick={this.onDelete.bind(this, i, subitem.id,)}>Delete</Button>
-                               </div>
-                            )
-                          })
-                      }
-                  </ListGroup.Item>
-                  ))}
-
               </ListGroup>
+
+              {this.state.items.map((item, index) => (
+              <ListGroup.Item key={index}>
+                 {
+                   item.items.map((subitem, i) => <Block onDelete={this.onDelete} id={subitem._id} subitem={subitem} index={i}></Block>)
+                 }
+              </ListGroup.Item>
+            ))}
+
           </Col>
       )
     }
