@@ -36,6 +36,8 @@ class StudentList extends React.Component {
       this.setState({
         items: data['items']
       })
+
+      console.log(this.state.items);
     }
 
     onSubmit = e => {
@@ -65,8 +67,7 @@ class StudentList extends React.Component {
 
     }
 
-    onEdit = (itemid, e) => {
-        e.preventDefault()
+    onEdit = (itemid) => {
 
         const data = this.state.items;
 
@@ -121,6 +122,7 @@ class StudentList extends React.Component {
 
       return (
           <Col md={12}>
+              <h1> Leerlingen beheren </h1>
               <Form onSubmit={this.onSubmit}>
                   <Form.Group>
                       <Form.Label>Name</Form.Label>
@@ -159,7 +161,7 @@ class StudentList extends React.Component {
                     !this.state.items ? (
                       <div style={{ backgroundColor: '#5CB85C', color: 'white', padding: '10px' }}>{this.state.message}</div>
                     ) : (
-                      this.state.items.map(item => <Block handleDelete={this.onDelete} key={item._id} item={item}></Block>)
+                      this.state.items.map(item => <Block handleDelete={this.onDelete} handleEdit={this.onEdit} key={item._id} item={item}></Block>)
                     )
                 }
                </ListGroup.Item>
