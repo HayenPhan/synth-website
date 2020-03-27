@@ -14,11 +14,11 @@ export default class Block extends React.Component {
     render() {
         return (
             <div>
-                 <ListGroup.Item>{this.state.item.name}</ListGroup.Item>
-                 <Link to={`/detail/${this.state.item._id}`}>Details</Link>
+                 <ListGroup.Item>{this.state.item.user}</ListGroup.Item>
+                 <Link to={`students/${this.state.item._id}/detail`}>Details</Link>
                  <Button onClick={() => this.props.handleDelete(this.state.item)}>Verwijderen</Button>
-                 <Link to={`/edit/${this.state.item._id}`}>Edit</Link>
-                 
+                 <Link to={`students/${this.state.item._id}/edit`}>Edit</Link>
+
             </div>
         )
     }

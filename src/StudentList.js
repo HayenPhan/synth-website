@@ -123,38 +123,6 @@ class StudentList extends React.Component {
       return (
           <Col md={12}>
               <h1> Leerlingen beheren </h1>
-              <Form onSubmit={this.onSubmit}>
-                  <Form.Group>
-                      <Form.Label>Name</Form.Label>
-                      <Row>
-                          <Col md={12}>
-                              <Form.Control type="text" id="name" name="name" value={this.state.name || ''} onChange={this.onChange.bind(this)} />
-                          </Col>
-                      </Row>
-                      <Form.Label>User</Form.Label>
-                      <Row>
-                          <Col md={12}>
-                              <Form.Control type="text" id="user" name="user" value={this.state.user || ''} onChange={this.onChange.bind(this)} />
-                          </Col>
-                      </Row>
-                      <Form.Label>Teacher</Form.Label>
-                      <Row>
-                          <Col md={12}>
-                              <Form.Control type="text" id="teacher" name="teacher" value={this.state.teacher || ''} onChange={this.onChange.bind(this)} />
-                          </Col>
-                      </Row>
-                  </Form.Group>
-                  {!this.state.editDisabled ? (
-                      <Button type="submit" onClick={this.onSubmit.bind(this)}> Submit </Button>
-                  ) : (
-                    ''
-                )}
-                {this.state.editDisabled ? (
-                    <Button type="submit" onClick={this.onSubmit.bind(this)}> Update </Button>
-                ): (
-                    ''
-                )}
-              </Form>
 
               <ListGroup.Item>
                 {

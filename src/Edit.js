@@ -95,6 +95,11 @@ class Detail extends React.Component {
                             <Button variant="primary" type="submit">
                                 Wijzigen
                            </Button>
+                           <Button variant="primary" type="submit">
+                              <Link className="link" to="/">
+                                  Terug
+                              </Link>
+                          </Button>
 
                       </form>
                     )
