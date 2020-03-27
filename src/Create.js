@@ -27,7 +27,7 @@ class Create extends React.Component {
         }).then(res => {
             if (res.ok) {
                 this.setState({
-                    message: 'Student is aangemaakt'
+                    message: 'Student has been created'
                 })
             }
         })
@@ -42,7 +42,9 @@ class Create extends React.Component {
                     ) : (null)
                 }
 
-              <Container>
+              <Container className="container__create">
+                <h3 className="title"> Create student </h3>
+
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group>
                         <Form.Label>Instrument</Form.Label>

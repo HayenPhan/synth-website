@@ -13,12 +13,15 @@ export default class Block extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="block">
                  <ListGroup.Item>{this.state.item.user}</ListGroup.Item>
-                 <Link to={`students/${this.state.item._id}/detail`}>Details</Link>
-                 <Button onClick={() => this.props.handleDelete(this.state.item)}>Verwijderen</Button>
-                 <Link to={`students/${this.state.item._id}/edit`}>Edit</Link>
-
+                 <Button>
+                    <Link className="link" to={`students/${this.state.item._id}/detail`}>Details</Link>
+                 </Button>
+                 <Button onClick={() => this.props.handleDelete(this.state.item)}>Delete</Button>
+                 <Button>
+                    <Link className="link" to={`students/${this.state.item._id}/edit`}>Edit</Link>
+                 </Button>
             </div>
         )
     }

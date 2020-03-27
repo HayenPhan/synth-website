@@ -1,5 +1,4 @@
 import React from 'react';
-import {getStudents, addStudent, deleteStudent, updateStudent} from './StudentFunctions.js';
 import { Container, Row, Col, Form, Button, Table, ListGroup} from 'react-bootstrap';
 import Block from './Block';
 
@@ -16,17 +15,10 @@ class StudentList extends React.Component {
             test: '',
             message: ''
         }
-
-        this.onSubmit = this.onSubmit.bind(this)
-        this.onChange = this.onChange.bind(this)
     }
 
     async componentDidMount() {
       this.getAll()
-    }
-
-    onChange = e => {
-          this.setState({ [e.target.name]: e.target.value })
     }
 
     getAll = async () =>  {
@@ -40,54 +32,7 @@ class StudentList extends React.Component {
       console.log(this.state.items);
     }
 
-    onSubmit = e => {
-        e.preventDefault()
-        addStudent(this.state.name, this.state.user, this.state.teacher).then(() => {
-            this.getAll()
-        })
-        this.setState({
-            name: '',
-            user: '',
-            teacher: ''
-        })
-    }
-
-    onUpdate = e => {
-        e.preventDefault()
-        updateStudent(this.state.name, this.state.user, this.state.teacher, this.state.id).then(() => {
-            this.getAll()
-        })
-        this.setState({
-            name: '',
-            user: '',
-            teacher: '',
-            editDisabled: ''
-        })
-        this.getAll()
-
-    }
-
-    onEdit = (itemid) => {
-
-        const data = this.state.items;
-
-        data.forEach((item, index) => {
-            if(item._id === itemid) {
-                this.setState({
-                    id: item._id,
-                    name: item.name,
-                    user: item.user,
-                    teacher: item.teacher,
-                    editDisabled: true
-                })
-            }
-        })
-    }
-
-
-
     onDelete = item => {
-        //e.preventDefault();
         const self = this
         const itemId = item._id
         const items = this.state.items
@@ -101,20 +46,14 @@ class StudentList extends React.Component {
          }).then(res => {
              if (res.ok) {
                  self.setState({
-                     message: `Verwijderd`
+                     message: `Deleted`
                  })
              }
          })
 
-        console.log('before setState');
-        console.log(this.state.items);
-
        this.setState({
            items: items.filter(item => item._id !== itemId)
        });
-
-       console.log('after setState');
-       console.log(this.state.items);
 
     }
 
@@ -122,12 +61,12 @@ class StudentList extends React.Component {
 
       return (
           <Col md={12}>
-              <h1> Leerlingen beheren </h1>
+              <h3 className="title"> Manage students </h3>
 
               <ListGroup.Item>
                 {
                     !this.state.items ? (
-                      <div style={{ backgroundColor: '#5CB85C', color: 'white', padding: '10px' }}>{this.state.message}</div>
+                      <div> {this.state.message} </div>
                     ) : (
                       this.state.items.map(item => <Block handleDelete={this.onDelete} handleEdit={this.onEdit} key={item._id} item={item}></Block>)
                     )

@@ -34,7 +34,7 @@ class Detail extends React.Component {
             <div>
                 {
                     !this.state.items ? (
-                      <div style={{ backgroundColor: 'crimson', color: 'white', padding: '10px' }}>{this.state.message}</div>
+                      <p>{this.state.message}</p>
                     ) : (
                       <Card>
                           <Card.Header as="h5">Student</Card.Header>

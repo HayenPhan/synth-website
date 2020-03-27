@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Navbar, Nav} from 'react-bootstrap';
 import StudentList from './StudentList';
 import Edit from './Edit';
 import Detail from './Detail';
@@ -20,16 +20,21 @@ class App extends React.Component {
         <Router>
           <Container>
               <div>
-                  <nav>
-                      <ul>
-                          <li>
-                              <Link to="/"> Students </Link>
-                          </li>
-                          <li>
-                              <Link to="/students/create"> Create Students</Link>
-                          </li>
-                      </ul>
-                  </nav>
+                  <Navbar bg="light" expand="lg">
+                  <Navbar.Brand>Music School</Navbar.Brand>
+                  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                  <Navbar.Collapse id="basic-navbar-nav">
+                      <Nav className="mr-auto">
+                          <Nav.Link>
+                              <Link className="link__app" to="/"> Students </Link>
+                          </Nav.Link>
+                          <Nav.Link>
+                              <Link className="link__app" to="/students/create"> Create Students</Link>
+                          </Nav.Link>
+                      </Nav>
+                  </Navbar.Collapse>
+                  </Navbar>
+
               </div>
               <Row>
                   <Switch>

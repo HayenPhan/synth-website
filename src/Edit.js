@@ -56,7 +56,7 @@ class Detail extends React.Component {
         }).then(res => {
             if (res.ok) {
                 this.setState({
-                    message: 'Gegevens zijn gewijzigd'
+                    message: 'Student data has changed'
                 })
             }
         })
@@ -65,7 +65,7 @@ class Detail extends React.Component {
     render() {
         return (
             <div>
-                <h2> Gegevens wijzigen van student </h2>
+                <h3 className="title"> Edit student details </h3>
                 {
                     this.state.message ? (
                         <p>{this.state.message}</p>
@@ -73,8 +73,9 @@ class Detail extends React.Component {
                 }
                 {
                     !this.state.loading ? (
-                        <p>Aan het laden</p>
+                        <p>Loading...</p>
                     ) : (
+
 
                         <form onSubmit={this.handleSubmit}>
                             <Form.Group controlId="formGroupName">
@@ -93,13 +94,8 @@ class Detail extends React.Component {
                             </Form.Group>
 
                             <Button variant="primary" type="submit">
-                                Wijzigen
+                                Edit
                            </Button>
-                           <Button variant="primary" type="submit">
-                              <Link className="link" to="/">
-                                  Terug
-                              </Link>
-                          </Button>
 
                       </form>
                     )
